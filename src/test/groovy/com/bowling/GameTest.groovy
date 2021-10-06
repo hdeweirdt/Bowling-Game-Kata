@@ -34,6 +34,24 @@ class GameTest extends Specification {
         game.roll(3)
 
         then: "the number of pins knocked down in the first roll of the second frame are added to the first"
-        game.score() == 10+ 3 + 3
+        game.score() == (10+ 3) + (3)
+    }
+
+    def "When a player throws a strike, the bonus for that frame is the number of points knocked down by the next two rolls"() {
+        given: "a newly started game"
+        Game game = new Game()
+
+        when: "the player throws a strike"
+        game.roll(10)
+
+        then:
+        game.score() == 10
+
+        when:
+        game.roll(3)
+        game.roll(5)
+
+        then: "the number of pins knocked down in the first roll of the second frame are added to the first"
+        game.score() == (10+ 3 + 5) + (3 + 5)
     }
 }

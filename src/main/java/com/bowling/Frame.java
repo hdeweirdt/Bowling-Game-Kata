@@ -27,6 +27,8 @@ public class Frame {
     public void calculateBonus(Frame nextFrame) {
         if (isSpare()) {
             bonus = nextFrame.getFirstThrow();
+        } else if (isStrike()) {
+            bonus = nextFrame.getFirstThrow() + nextFrame.getSecondThrow();
         }
     }
 
@@ -55,6 +57,6 @@ public class Frame {
     }
 
     public boolean isPlayed() {
-        return firstThrow.isPresent() && secondThrow.isPresent();
+        return firstThrow.isPresent() && secondThrow.isPresent() || isStrike();
     }
 }
